@@ -76,7 +76,33 @@ namespace MMMW_Warcaby
         private void Move(string classId)
         {
             var piece = Pieces.Find(p => p.Image.IsVisible && p.Image.ClassId == PieceSelected);
-            
+            if (PossibleCaptures.ContainsKey(PieceSelected) && PossibleCaptures[PieceSelected].Contains(classId) || PossibleMoves.ContainsKey(PieceSelected) && PossibleMoves[PieceSelected].Contains(classId))
+            {
+                piece.Image.TranslateTo(piece.Image.TranslationX + (classId[2] - PieceSelected[2]) * 40, piece.Image.TranslationY + (classId[1] - PieceSelected[1]) * 40, 300);
+                piece.Image.ClassId = "p" + classId[1] + classId[2] + Turn;
+                piece.Image.BackgroundColor = Color.Transparent;
+                if (PossibleCaptures.ContainsKey(PieceSelected) && PossibleCaptures[PieceSelected].Contains(classId))
+                {
+                    Pieces.Find(p => p.Image.IsVisible && p.Image.ClassId == "p" + ((int.Parse(classId[1].ToString()) + int.Parse(PieceSelected[1].ToString())) / 2) + ((int.Parse(classId[2].ToString()) + int.Parse(PieceSelected[2].ToString())) / 2) + (Turn == 'w' ? "b" : "w")).Image.IsVisible = false;
+                    PieceSelected = null;
+                    GetPossibleMoves();
+                    if (PossibleCaptures.Count > 0)
+                        return;
+                    if (Pieces.Where(p => p.Image.ClassId[3] != Turn).All(p => !p.Image.IsVisible))
+                    {
+                        IsPlaying = false;
+                        DisplayAlert("Koniec gry", $"{(Turn == 'w' ? "Białe" : "Czarne")} wygrały", "OK");
+                    }
+                }
+                PieceSelected = null;
+                Turn = Turn == 'w' ? 'b' : 'w';
+                GetPossibleMoves();
+                if (PossibleCaptures.Count == 0 && PossibleMoves.Count == 0)
+                {
+                    IsPlaying = false;
+                    DisplayAlert("Koniec gry", $"Remis - brak możliwości ruchu", "OK");
+                }
+            }
         }
     }
 }
