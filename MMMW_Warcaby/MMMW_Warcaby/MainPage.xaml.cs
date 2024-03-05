@@ -38,6 +38,20 @@ namespace MMMW_Warcaby
                 }
                 isWhite = !isWhite;
             }
+            for(int i = 0; i < 3; i ++)
+            {
+                for(int j = 0; j < 8; j++)
+                {
+                    if(i % 2 == 0 && j % 2 == 1 || i % 2 == 1 && j % 2 == 0)
+                        Pieces.Add(new Piece("MMMW_Warcaby.Images.black.png", false, i, j));
+                    else
+                        Pieces.Add(new Piece("MMMW_Warcaby.Images.white.png", true, 7 - i, j));
+                    Pieces.Last().Image.BackgroundColor = Color.Transparent;
+                    Pieces.Last().Image.
+                    grid.Children.Add(Pieces.Last().Image); 
+                }
+            }
+            call function
         }
 
         private void Button_Clicked(object sender, EventArgs e)
