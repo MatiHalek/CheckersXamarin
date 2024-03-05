@@ -19,9 +19,33 @@ namespace MMMW_Warcaby
         public MainPage()
         {
             InitializeComponent();
+            bool isWhite = true;
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < 8 ; j++)
+                {
+                    Button button = new Button();
+                    button.Clicked += Button_Clicked;
+                    if (isWhite)
+                        button.BackgroundColor = Color.White;
+                    else
+                        button.BackgroundColor = Color.FromRgb(160, 82, 46);
+                    button.ClassId = "i" + i + j;
+                    Grid.SetRow(button, i);
+                    Grid.SetColumn(button, j);
+                    grid.Children.Add(button);
+                    isWhite = !isWhite;
+                }
+                isWhite = !isWhite;
+            }
         }
 
         private void Button_Clicked(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void AutoMove_Clicked(object sender, EventArgs e)
         {
 
         }
