@@ -52,7 +52,7 @@ namespace MMMW_Warcaby
                     grid.Children.Add(Pieces.Last().Image); 
                 }
             }
-            call function
+            GetPossibleMoves();
         }
 
         private void Image_Clicked(object sender, EventArgs e)
@@ -171,16 +171,16 @@ namespace MMMW_Warcaby
                     if (Pieces.Where(p => p.Image.ClassId[3] != Turn).All(p => !p.Image.IsVisible))
                     {
                         IsPlaying = false;
-                        DisplayAlert("Koniec gry", $"{(Turn == 'w' ? "Białe" : "Czarne")} wygrały", "OK");
+                        DisplayAlert("Game over", $"{(Turn == 'w' ? "White" : "Black")} won", "OK");
                     }
                 }
                 PieceSelected = null;
                 Turn = Turn == 'w' ? 'b' : 'w';
                 GetPossibleMoves();
-                if (PossibleCaptures.Count == 0 && PossibleMoves.Count == 0)
+                if (PossibleCaptures.Count == 0 && PossibleMoves.Count == 0 && IsPlaying)
                 {
                     IsPlaying = false;
-                    DisplayAlert("Koniec gry", $"Remis - brak możliwości ruchu", "OK");
+                    DisplayAlert("Game over", $"Draw - no legal moves available", "OK");
                 }
             }
         }
