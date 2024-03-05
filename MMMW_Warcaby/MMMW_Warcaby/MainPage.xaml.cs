@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace MMMW_Warcaby
 {
@@ -79,7 +80,25 @@ namespace MMMW_Warcaby
 
         private void AutoMove_Clicked(object sender, EventArgs e)
         {
-
+            if(IsPlaying)
+            {
+                Random random = new Random();
+                var allMoves = PossibleCaptures.Concat(PossibleMoves).ToDictionary(item => item.Key, item => item.Value);
+                int index = -1;
+                if (PieceSelected != null)
+                    index = allMoves.Keys.IndexOf(PieceSelected);
+                else
+                {
+                    index = random.Next(allMoves.Count);
+                    PieceSelected = allMoves.Keys.ElementAt(index);
+                }
+                if(index != -1)
+                {
+                    var piece = allMoves.ElementAt(index);
+                    var move = piece.Value[random.Next(piece.Value.Count)]; 
+                    Move(move);
+                }
+            }
         }
     }
 }
