@@ -4,7 +4,15 @@
              x:Class="MMMW_Warcaby.MainPage">
 
     <StackLayout>
-       
+        <StackLayout.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0.3"/>
+                <GradientStop Offset="0.6"/>
+                <GradientStop Offset="1.0"/>
+            </LinearGradientBrush>
+        </StackLayout.Background>
+        <Grid ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="*,*,*,*,*,*,*,*" RowDefinitions="*,*,*,*,*,*,*,*" WidthRequest="320" HeightRequest="320" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" x:Name="grid"/>
+        
     </StackLayout>
 
 </ContentPage>
