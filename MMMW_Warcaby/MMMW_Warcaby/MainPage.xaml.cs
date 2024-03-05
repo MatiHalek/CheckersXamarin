@@ -45,6 +45,32 @@ namespace MMMW_Warcaby
                 if (values.Count > 0)
                     PossibleCaptures[piece.Image.ClassId] = values;
             }
+
+            if (PossibleCaptures.Count == 0)
+            {
+                foreach (var piece in colorPieces)
+                {
+                    int y = int.Parse(piece.Image.ClassId[1].ToString());
+                    int x = int.Parse(piece.Image.ClassId[2].ToString());
+                    List<string> values = new List<string>();
+                    if (piece.Image.ClassId[3] == 'b')
+                    {
+                        if (!visiblePieces.Exists(p => p.Image.ClassId.Substring(0, 3) == $"p{y + 1}{x - 1}") && x >= 1 && y <= 6)
+                            values.Add($"i{y + 1}{x - 1}");
+                        if (!visiblePieces.Exists(p => p.Image.ClassId.Substring(0, 3) == $"p{y + 1}{x + 1}") && x <= 6 && y <= 6)
+                            values.Add($"i{y + 1}{x + 1}");
+                    }
+                    else
+                    {
+                        if (!visiblePieces.Exists(p => p.Image.ClassId.Substring(0, 3) == $"p{y - 1}{x - 1}") && x >= 1 && y >= 1)
+                            values.Add($"i{y - 1}{x - 1}");
+                        if (!visiblePieces.Exists(p => p.Image.ClassId.Substring(0, 3) == $"p{y - 1}{x + 1}") && x <= 6 && y >= 1)
+                            values.Add($"i{y - 1}{x + 1}");
+                    }
+                    if (values.Count > 0)
+                        PossibleMoves[piece.Image.ClassId] = values;
+                }
+            }
         }
     }
 }
