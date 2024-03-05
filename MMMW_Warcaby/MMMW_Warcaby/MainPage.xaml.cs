@@ -72,5 +72,10 @@ namespace MMMW_Warcaby
                 }
             }
         }
+
+        private void Move(string classId)
+        {
+            
+        }
     }
 }
