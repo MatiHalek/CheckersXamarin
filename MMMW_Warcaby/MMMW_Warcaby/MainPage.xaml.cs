@@ -27,6 +27,24 @@ namespace MMMW_Warcaby
             PossibleMoves.Clear();
             List<Piece> visiblePieces = Pieces.Where(p => p.Image.IsVisible).ToList();
             List<Piece> colorPieces = visiblePieces.Where(p => p.Image.ClassId[3] == Turn).ToList();
+
+            foreach (var piece in colorPieces)
+            {
+                int y = int.Parse(piece.Image.ClassId[1].ToString());
+                int x = int.Parse(piece.Image.ClassId[2].ToString());
+                string oppositeColor = Turn == 'w' ? "b" : "w";
+                List<string> values = new List<string>();
+                if (!visiblePieces.Exists(p => p.Image.ClassId.Substring(0, 3) == $"p{y + 2}{x + 2}") && visiblePieces.Exists(p => p.Image.ClassId == $"p{y + 1}{x + 1}{oppositeColor}") && x <= 5 && y <= 5)
+                    values.Add($"i{y + 2}{x + 2}");
+                if (!visiblePieces.Exists(p => p.Image.ClassId.Substring(0, 3) == $"p{y - 2}{x - 2}") && visiblePieces.Exists(p => p.Image.ClassId == $"p{y - 1}{x - 1}{oppositeColor}") && x >= 2 && y >= 2)
+                    values.Add($"i{y - 2}{x - 2}");
+                if (!visiblePieces.Exists(p => p.Image.ClassId.Substring(0, 3) == $"p{y - 2}{x + 2}") && visiblePieces.Exists(p => p.Image.ClassId == $"p{y - 1}{x + 1}{oppositeColor}") && x <= 5 && y >= 2)
+                    values.Add($"i{y - 2}{x + 2}");
+                if (!visiblePieces.Exists(p => p.Image.ClassId.Substring(0, 3) == $"p{y + 2}{x - 2}") && visiblePieces.Exists(p => p.Image.ClassId == $"p{y + 1}{x - 1}{oppositeColor}") && x >= 2 && y <= 5)
+                    values.Add($"i{y + 2}{x - 2}");
+                if (values.Count > 0)
+                    PossibleCaptures[piece.Image.ClassId] = values;
+            }
         }
     }
 }
