@@ -12,7 +12,7 @@
             </LinearGradientBrush>
         </StackLayout.Background>
         <Grid ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="*,*,*,*,*,*,*,*" RowDefinitions="*,*,*,*,*,*,*,*" WidthRequest="320" HeightRequest="320" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" x:Name="grid"/>
-        
+        <Button TextColor="White" BackgroundColor="DarkBlue" CornerRadius="15" Margin="5" Text="Use engine to make a move" Clicked="AutoMove_Clicked"/>
     </StackLayout>
 
 </ContentPage>
