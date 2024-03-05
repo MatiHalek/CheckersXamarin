@@ -47,16 +47,22 @@ namespace MMMW_Warcaby
                     else
                         Pieces.Add(new Piece("MMMW_Warcaby.Images.white.png", true, 7 - i, j));
                     Pieces.Last().Image.BackgroundColor = Color.Transparent;
-                    Pieces.Last().Image.
+                    Pieces.Last().Image.Clicked += Image_Clicked;
                     grid.Children.Add(Pieces.Last().Image); 
                 }
             }
             call function
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void Image_Clicked(object sender, EventArgs e)
         {
             
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            if (PieceSelected != null)
+                Move(((Button)sender).ClassId);
         }
 
         private void AutoMove_Clicked(object sender, EventArgs e)
