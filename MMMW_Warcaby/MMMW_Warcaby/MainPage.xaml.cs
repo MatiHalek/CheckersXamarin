@@ -20,5 +20,13 @@ namespace MMMW_Warcaby
         {
             InitializeComponent();
         }
+
+        private void GetPossibleMoves()
+        {
+            PossibleCaptures.Clear();
+            PossibleMoves.Clear();
+            List<Piece> visiblePieces = Pieces.Where(p => p.Image.IsVisible).ToList();
+            List<Piece> colorPieces = visiblePieces.Where(p => p.Image.ClassId[3] == Turn).ToList();
+        }
     }
 }
