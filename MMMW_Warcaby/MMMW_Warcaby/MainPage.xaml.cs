@@ -56,7 +56,19 @@ namespace MMMW_Warcaby
 
         private void Image_Clicked(object sender, EventArgs e)
         {
-            
+            var image = (ImageButton)sender;
+            if (!IsPlaying || image.ClassId[3] != Turn)
+                return;
+            if(PieceSelected is null)
+            {
+                PieceSelected = image.ClassId;
+                image.BackgroundColor = Color.FromHex("#B3228B22");
+            }
+            else if(PieceSelected == image.ClassId)
+            {
+                PieceSelected = null;
+                image.BackgroundColor = Color.Transparent;
+            }
         }
 
         private void Button_Clicked(object sender, EventArgs e)
