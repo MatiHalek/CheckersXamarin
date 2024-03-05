@@ -75,6 +75,7 @@ namespace MMMW_Warcaby
 
         private void Move(string classId)
         {
+            var piece = Pieces.Find(p => p.Image.IsVisible && p.Image.ClassId == PieceSelected);
             
         }
     }
